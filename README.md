@@ -10,8 +10,7 @@
 ![한줄_김세엽(피피티) (2)](https://github.com/sayyoup/JavaGame_ChromeDino/assets/123839647/30b068f2-e799-4719-90d6-746001f7087a)
 <p>코드설명</p>
 
-<a href="[https://docs.google.com/presentation/d/1sgtCN9rKdnkCQEvN7Alcag_6DLGHecdB2v-w1xXN4uI/edit?usp=sharing](https://docs.google.com/presentation/d/1ug1YWyf7n-NLQ3FgrQVDO45xN_RYSkj3u2tB-rhCy4M/edit?usp=sharing)https://docs.google.com/presentation/d/1ug1YWyf7n-NLQ3FgrQVDO45xN_RYSkj3u2tB-rhCy4M/edit?usp=sharing
-">한줄 피피티</a>
+<a href="https://docs.google.com/presentation/d/1ug1YWyf7n-NLQ3FgrQVDO45xN_RYSkj3u2tB-rhCy4M/edit?usp=sharing">한줄 피피티</a>
 
 (시연영상이 포함되어 있습니다.)
 ## 
