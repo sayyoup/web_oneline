@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/base_layout}">
+    <main layout:fragment="main">
+        <div class="container text-center">
+            <form method="post" id="formNewStore">
+                <h1 class="p-3 my-2">- 회원가입 등록 -</h1>
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="username">아이디 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="username" name="username"
+                        placeholder="매장이름을 적어주세요 EX) 아이티윌_(강남점)" required autofocus>
+                    </div>
+                    <div class="col-1" id="usernameYesOrNoImage">
+                    </div>
+                </div>
+                
+                <div class="my-1 p-1 d-none" id="checkTheUserName">
+                    <font>뭐라한번적어볼까?</font>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="password">비밀번호 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" class="form-control" id="password" name="password"
+                        placeholder="비밀번호를 입력해 주세요" required>
+                    </div>
+                    <div class="col-1" id="passwordYesOrNoImage">
+                    </div>
+                </div>
+                
+                <div class="my-1 p-1 d-none" id="checkThePassword">
+                    <font>비밀번호 체크</font>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="passwordA">비밀번호 확인: </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="password" class="form-control" id="passwordA" name="passwordA"
+                        placeholder="비밀번호를 다시 입력해 주세요" required disabled>
+                    </div>
+                    <div class="col-1" id="passwordAYesOrNoImage">
+                    </div>
+                </div>
+                
+                <div class="my-1 p-1 d-none" id="checkThePasswordA">
+                    <font>비밀번호 위와 같은지 체크</font>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="email">이메일: </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="email" class="form-control" id="email" name="email"
+                        placeholder="이메일을 입력해 주세요 EX) itwill@naver.com" required>
+                    </div>
+                    
+                    <div class="col-1" id="emailYesOrNoImage">
+                    </div>
+                </div>
+                
+                <div class="my-1 p-1 d-none" id="checkTheEmail">
+                    <font>이메일 확인</font>
+                </div>
+                
+                <div class="d-grid gap-2 col-6 mx-auto my-4">
+                      <button class="btn btn-primary" type="button" id="btnCreateNewStore">생성</button>
+                      <input class="btn btn-primary" id="inputCancel" type="button" value="취소" onclick="location.href='/'"/>                      
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/store/sing_up_input_check.js"></script>
+    </th:block>
+    
+</html>

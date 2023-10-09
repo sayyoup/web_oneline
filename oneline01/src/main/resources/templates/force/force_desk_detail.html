@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/force_layout}">
+    <main class="my-5" layout:fragment="main">
+    <input type="hidden" id="inputDeskState" th:value="${deskInfo.d_state}">
+        <!-- 테이블 정보, 결제 정보, 매장관리 정보,  -->
+        <!-- 메뉴 :  검색, 카테고리, 리스트, 추가, 삭제 -->
+        <!-- 상품관리 : 메뉴 추가, 검색, 리스트 각요소(수정(모달), 삭제) /  -->
+        
+        <form method="get" action="/force/force_main?sotreId=0" id="formGoForceMain">
+        </form>
+        
+        
+        <div class="row">
+            <!-- 정보 -->
+            <div class="col" id="force_info">
+                <!-- 테이블 정보 -->
+                <div id="desk_detail">
+                    <table class="table table-bordered align-middle bg-light table-hover" id="menu_list_table">
+                        <thead>
+                            <tr>
+                                <th class="table-primary" colspan="5" th:text="${deskInfo.d_number} +' 번 테이블'"></th>
+                                <th class="table-primary text-center" id="thDeskState"></th>
+                            </tr>
+                            <tr class="table-primary">
+                                <th class="text-center" id="selectAllOrDeleteAll">선택</th>
+                                <th>상품명</th>
+                                <th>단가</th>
+                                <th class="text-center">옵션</th>
+                                <th class="text-center">수량</th>
+                                <th class="text-right">금액</th>
+                            </tr>
+                        </thead>
+                        <!-- TODO: 테이블 클릭시 해당 테이블의 정보나열 -->
+                        <tbody id="tbodyOrderList">
+                            <tr>
+                                <td class="table-light text-center">
+                                    <input class="form-check-input" type="checkbox" value="" id="inputDeskCheck" />
+                                </td>
+                                <td class="table-light">상품1</td>
+                                <td class="table-light">20000</td>
+                                <td class="table-light">기본</td>
+                                <td class="table-light text-center">
+                                    <button class="btn btn-outline-primary">-</button>
+                                    1
+                                    <button class="btn btn-outline-primary">+</button>
+                                </td>
+                                <td class="table-light text-right">20000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="btnsCancel">
+                    <table class="table table-bordered align-middle bg-light"
+                        id="menu_list_table">
+                        <tr>
+                            <td class="table-light" colspan="2">
+                                <span class="d-grid gap-2">
+                                    <button id="btnSelectOrderDelete" class="btn btn-outline-danger">선택삭제</button>
+                                </span>
+                            </td>
+                            <td class="table-light" colspan="2">
+                                <span class="d-grid gap-2">
+                                    <button id="btnAllOrderDelete" class="btn btn-outline-danger">전체삭제</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div id="totalAmount">
+                    <table class="table">
+                        <tr>
+                            <td class="table-light" colspan="2">
+                                <h6>총 금액 : </h6>
+                            </td>
+                            <td class="table-light" align="right" colspan="2">
+                                <h6 id="h6TotalPrice">20000 \</h6>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td class="table-light" colspan="2">
+                                <h6>할인 금액 : </h6>
+                            </td>
+                            <td class="table-light" align="right" colspan="2">
+                                <h6 id="h6DiscountPrice">3000\</h6>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td class="table-light" colspan="2">
+                                <h6>결제한 금액 : </h6>
+                            </td>
+                            <td class="table-light" align="right" colspan="2">
+                                <h6 id="h6PaiedPrice">8000\</h6>
+                           </td>
+                        </tr>
+                        <tr>
+                            <td class="table-light" colspan="2">
+                                <h6>받을 금액 : </h6>
+                            </td>
+                            <td class="table-light" align="right" colspan="2">
+                                <h6 id="h6ReceivePrice">9000\</h6>
+                           </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- 메뉴 검색 리스트 -->
+            <div class="col"  id="force_menu_list">
+                <div class="row">
+                    <div class="col">
+                        <nav class="navbar bg-body-tertiary" id="menu_category_var">
+                        <div class="container-fluid">
+                            <button class="btnMenuCategory btn btn-info navbar-brand" data-id="all_menu">전체보기</button>
+                            <button class="btnMenuCategory btn navbar-brand" data-id="main_menu">메인메뉴</button>
+                            <button class="btnMenuCategory btn navbar-brand" data-id="side_menu">사이드메뉴</button>
+                            <button class="btnMenuCategory btn navbar-brand" data-id="set_menu">세트메뉴</button>
+                            <button class="btnMenuCategory btn navbar-brand" data-id="drink_menu">음료/주류</button>
+                            
+                            <button class="btnGoForceMain btn navbar-brand" id="btn_category_main_menu">X</button>
+                        </div>
+                    </nav>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group mb-3 p-2" id="menu_search_var">
+                            <input id="inputhMenuSearc" type="text" class="form-control" placeholder="제품이름으로 검색해 주세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="btnMenuSearc">검색</button>
+                        </div>
+    
+                        <div id="menu_list_table3">
+                            <table class="table table-hover align-middle bg-light">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" width="96">상품명</th>    
+                                        <th scope="col" width="2" class="text-center">남은수량</th> 
+                                        <th scope="col" width="2" style="text-align: right;">금액</th> 
+                                    </tr>
+                                </thead>
+                                <!-- 메뉴리스트 보이기 -->
+                                <tbody id="tableMenuList">          
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                
+                    <div class="col" id="order_complete">
+                        <span class="d-grid 2-gap p-1">
+                            <button id="btnOrder" class="btnGoForceMain btn btn-primary">주문</button>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <!-- 카드/현금버튼 -->
+                        <div class="col" id="force_approval">
+                            <table class="table">
+                            
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <button data-id="card" data-bs-target="#payModal" data-bs-toggle="modal" class="btnPayment btn btn-outline-success" style=" width: 110px;height: 130px">
+                                            카드결제 삼성페이
+                                        </button>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button data-id="cash" data-bs-target="#payModal" data-bs-toggle="modal" class="btnPayment btn btn-outline-success" style=" width: 110px;height: 130px">
+                                            현금결제
+                                        </button>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button data-id="kakao" data-bs-target="#payModal" data-bs-toggle="modal" class="btnPayment btn btn-outline-success" style=" width: 110px;height: 130px">
+                                            카카오결제
+                                        </button>
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button data-id="qr" data-bs-target="#payModal" data-bs-toggle="modal" class="btnPayment btn btn-outline-success" style=" width: 110px;height: 130px">
+                                            QR결제
+                                        </button>
+                                    </td>                  
+                                </tr>
+                                
+                                <tr>
+                                    <td style="text-align: center;"><button class="btn btn-outline-success" id="btnAllCancel" style=" width: 110px;height: 130px">전체취소</button></td>
+                                    <td style="text-align: center;"><button class="btn btn-outline-success" id="btnAddPrice" style=" width: 110px;height: 130px">금액추가</button></td>
+                                    <td style="text-align: center;"><button class="btn btn-outline-success" id="btnDiscount" style=" width: 110px;height: 130px">할인</button></td>
+                                    <td style="text-align: center;"><button id="btnDeskState"class="btn btn-outline-success" style=" width: 110px;height: 130px">착석/탈석</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <!-- 결제 모달 띄우기 -->
+                        <div class="modal fade" id="payModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="h1PayModalTitle">결제 방식</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <span>결제금액 : <span id="spanAmountOfPayment"></span> 원</span>
+                                        <div id="payModalBody" class="text-center">
+                                            이미지 넣을곳
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="btnATP" class="btnCPay btn btn-primary" data-id="y" data-bs-target="#payCModal" data-bs-toggle="modal">결제 완료</button>
+                                        <button id="btnFTP" class="btnCPay btn btn-secondary" data-id="n" data-bs-target="#payCModal" data-bs-toggle="modal">결제 실패</button>
+                                        <button id="btnETP" type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 결제 완료 모달 -->
+                        <div class="modal fade" id="payCModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="h1PayCModalTitle">결제완료</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="payCModalBody" class="text-center">
+                                            이미지 넣을곳
+                                        </div>
+                                        <div class="text-center" id="divTreeSeconds">
+                                            <span id="spanTreeSecound" class="d-none"><font id="fontCount">3</font> 초 후 페이지 이동</span>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button id="endThePayModal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">종료</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 계산기 -->
+                        <div class="col" id="force_calculator">
+                            <!-- 분할 계산 용도의 계산기 -->
+                            <table class="table table-bordered align-middle bg-light" id="calculator_table">
+                                <tr>
+                                    <td class="table-light" colspan="3">
+                                        <input class="form-control" type="number" id="inputCalculator" style="text-align:right"/>
+                                    </td>                    
+                                </tr>
+                                <tr>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorOne" class="btn btn-primary">1</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorTwo" class="btn btn-primary">2</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorTree" class="btn btn-primary">3</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorFour" class="btn btn-primary">4</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorFive" class="btn btn-primary">5</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorSix" class="btn btn-primary">6</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id=btnCalculatorSeven class="btn btn-primary">7</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorEight" class="btn btn-primary">8</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorNine" class="btn btn-primary">9</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorD" class="btn btn-outline-danger">D</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorZero" class="btn btn-primary">0</button>
+                                        </span>
+                                    </td>
+                                    <td class="table-light" width="50">
+                                        <span class="d-grid 2-gap">
+                                            <button id="btnCalculatorC" class="btn btn-outline-danger">C</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <a href="https://lordicon.com/">Icons by Lordicon.com</a>
+    </main>
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/force/force_desk_detail_menuList.js"></script>
+        <script src="/js/force/force_detail_desk_state.js"></script>
+        <script src="/js/force/force_detail_calculator.js"></script>
+        <script src="/js/force/force_detail_price.js"></script>
+    </th:block>
+    <th:block layout:fragment="mycss">
+    </th:block>
+</html>

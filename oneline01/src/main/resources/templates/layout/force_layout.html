@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>One Line</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet" 
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+            
+        <style type="text/css">
+            header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 75px;
+                padding: 1rem;
+                color: white;
+                background: teal;
+                font-weight: bold;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            main {
+              padding: 3rem;
+              height: 200%;  
+            }
+            
+            #force_desk {
+                width: 1200px;
+                height: 820px;
+                background-color: white;
+                overflow: auto;
+            }
+            
+            #line_management{
+                width: 600px;
+                height: 600px;
+                background-color: white;
+                overflow: auto;
+            }
+            
+            #store_management{
+                width: 600px;
+                height: 220px;
+                background-color: white;
+            }
+            
+            #desk_detail {
+                width: 900px;
+                height: 525px;
+                background-color: white;
+                overflow: auto;
+            }
+            #btnsCancel{
+                width: 900px;
+                height: 75px;
+                background-color: white;
+                overflow: auto;
+            }
+            #totalAmount{
+                width: 900px;
+                height: 195px;
+                color: black;
+                background-color: white;
+                overflow: auto;
+            }
+            #calculator_table{
+                width: 290px;
+                height: 240px;
+                color: black;
+                background-color: white;
+                overflow: auto;
+            }
+            
+            #force_menu_list{
+                width: 1500px;
+                height: 780px;
+                color: black;
+                background-color: white;
+                overflow: auto;
+            }
+            #menu_list_table3{
+                width: 840px;
+                height: 300px;
+                overflow: auto;
+            }
+            
+            #order_complete{
+                width: 810px;
+                height: 50px;
+                background-color: white;
+            }
+            
+            #force_approval{
+                width: 810px;
+                height: 240px;
+                background-color: white;
+            }
+            .card:hover{
+                transform: scale(1.05);
+                box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+            }
+        </style>
+    </head>
+    <body class="">
+        <div class="container-fluid">
+            <header class="p-3">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container-fluid">
+                    
+                        <span style="color:white;" class="navbar-brand" onClick="location.href='/force/force_main'">
+                            <img src="/image/logo/han_font_w.png" alt="logo" style="height: 50px;">
+                        </span>
+                    
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a style="color:white;" class="nav-link active"  href="/force/force_main">HOME</a>          
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white;" class="nav-link active"  href="/logout">로그아웃</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a style="color:white;" class="nav-link active"  id="aEndStore">
+                                        영업종료
+                                    </a>          
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            <!-- main 컨탠트가 들어갈 위치 지정(layout:fragment로 설정) -->
+            <th:block layout:fragment="main"></th:block>
+            
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                crossorigin="anonymous"></script>
+            <th:block layout:fragment="myscripts"></th:block>
+            <th:block layout:fragment="mycss"></th:block>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/force_layout}">
+    <main class="my-5" layout:fragment="main">
+    <input th:value="${s_id}" type="hidden" id="inputStoreId"/>        
+        <div class="row">
+            <!-- 테이블 -->
+            <div class="col-8" id="force_desk">
+            <!-- 테이블 추가 삭제 버튼, 클릭시 인포에 현재 정보표시, 결제활성화 -->
+                <table class="table table-bordered align-middle bg-light" id="force_desk_table">
+                    <tr>
+                        <td class="table-primary" colspan="3">
+                            테이블 목록
+                        </td>
+                        <td class="table-primary" colspan="2" align="right">
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#newDeskModal">테이블추가</button>
+                            <button class="btn btn-outline-primary" id="btnRemoveDestk">테이블삭제</button>
+                        </td>
+                </table>
+                <!-- desk리스트 올곳 -->
+                <div id="divDeskList" class="row row-cols-1 row-cols-md-5 g-4" >
+                    
+                </div>
+            </div>
+            <!-- desk 생성 모달 -->            
+            <div class="modal fade" id="newDeskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:black">새 테이블 생성하기</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <label class="form-label"  for="inputNewDeskCount" style="color:black">테이블 인원수 : </label>
+                                <input class="form-control" type="number" id="inputNewDeskCount" style="float:right;"/>                        
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                            <button type="button" class="btn btn-primary" id="btnAddDestk" data-bs-dismiss="modal">생성</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-4" id="force_management">
+                <div class="row">
+                    <!-- 줄 관리 -->
+                    <div id="line_management">
+                        <table class="table col">
+                            <tr>
+                                <td colspan="5">
+                                    <button class="btn btn-primary" id="btnLineUpdate">줄관리</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>순번</td>
+                                <td>이름</td>
+                                <td style="text-align:center;">인원</td>
+                                <td style="text-align:center;" colspan="2">배치/삭제</td>
+                            </tr>
+                            <tbody id="lineListtable">
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row" id="store_management">
+                    <!-- 매장관리 -->
+                    <div class="col" id="menu_management">
+                        <span class="d-grid 2-gap">
+                            <button class="btn btn-outline-success my-3" style="height:180px" onClick="location.href='/store/store_menu'">메뉴관리</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 손님 desk에 배치 모달 -->
+        <div class="modal fade" id="customerArrangementModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                <div class="modal-content">            
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel" style="color:black"><span id="cuntomerNumberArrangement"></span> 번 손님 배치</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="color:black">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">번호</th>
+                                    <th scope="col" class="text-center">수용가능인원</th>
+                                    <th scope="col" class="text-center">배치</th>                                    
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyCustomerArrangementModal">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer" style="color:black">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 주문한 손님 주문내역 모달 -->
+        <div class="modal fade" id="orderModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="orderModalName">x손님 주문내역</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered align-middle bg-light">
+                        <thead>
+                        <tr>
+                            <th style="text-align:left;">메뉴</th>
+                            <th style="text-align:center;">수량</th>
+                            <th style="text-align:center;">금액</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tbodyBasketList">
+                            <tr>
+                                <td style="text-align:left;">메뉴이름</td>
+                                <td>1</td>
+                                <td><span >20000</span>원</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2" style="text-align:left;"><font>총금액 : </font></td>   
+                                         
+                                <td style="text-align:right;">
+                                <font><font id="fontTotalPrice">20000</font> 원</font>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary"data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        
+    </main>
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/force/force_main.js"></script>
+        <script src="/js/force/force_main_line.js"></script>
+    </th:block>
+    <th:block layout:fragment="mycss">
+        
+    </th:block>
+</html>

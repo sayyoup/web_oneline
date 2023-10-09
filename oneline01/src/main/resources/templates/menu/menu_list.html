@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/line_layout}">
+    <main layout:fragment="main">
+        <input type="hidden" th:value="${c_id}" id="inputCId"/>
+        <!-- 주문내역 카드 -->
+        <div class="card text-center">
+            <div class="card-head">
+                <h4 class="p-2 my-2">- 주문 하기 -</h4>
+            </div>
+            
+            <div class="card-body" style="height:450px; overflow: auto;">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">메뉴</th>
+                            <th style="text-align:left;">가격</th>
+                            <th>담기</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyMenuList">
+                        <tr>
+                            <td style="text-align:left;">
+                                <div style="background: teal; width:80px ; height:80px;">
+                                    이미지
+                                </div>
+                                <font  size=2>
+                                    상품이름 크...
+                                </font >         
+                            </td>
+                            <td style="text-align:left;">20000원</td>
+                            <td>
+                                <button class="btn btn-outline-primary">담기</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            
+            <div class="card-footer">
+                <span class="d-grid 2-gap">
+                    <a id="btnBasket" class="btn btn-primary my-2">장바구니</a>
+                    <a id="btnGoBack" class="btn btn-primary my-1" >돌아가기</a>
+                </span>
+            </div>
+        </div>
+    </main>
+        
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/phone/menu_list_page.js"></script>
+    </th:block>
+</html>

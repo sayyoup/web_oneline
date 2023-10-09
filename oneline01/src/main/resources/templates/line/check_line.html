@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/line_layout}">
+    <main class="text-center" layout:fragment="main">
+    
+        <input type="hidden" id="inputc_id" th:value="${c_id}"/>
+        <!-- 줄서기 카드 -->
+        <div class="card text-center">
+            <div class="card-head">
+                <h4 class="p-2 my-2">- 줄서기 현황 -</h4>
+            </div>
+            
+            <div class="card-body" style="height:450px;">
+                <h6>순번</h6>
+                <h1 class="my-1 p-2" id="h1CNumber">123번</h1>
+                
+                
+                <div style="height:300px;">
+                    <div>
+                        <img src="/image/lode.gif" alt="load">
+                    </div>
+                    <br/>
+                    <div>
+                        <button class="btn btn-primary" id="btnNewPage" >
+                            새로고침
+                        </button>
+                        <div id="divExpectationWaitingTime"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <span class="d-grid 2-gap">
+                    <a id="btnPreOrder" class="btn btn-primary my-1" th:href="@{/menu/menu_list(c_id=${c_id})}">미리 주문하기</a>
+                    <a id="btnSeeMyOrder" class="btn btn-primary my-1" th:href="@{/menu/menu_order_list(c_id=${c_id})}">내주문보기</a>
+                </span>
+            </div>
+        </div>
+    </main>
+        
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/phone/line_page.js"></script>
+    </th:block>
+</html>

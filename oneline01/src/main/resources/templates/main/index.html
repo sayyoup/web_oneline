@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"    
+    layout:decorate="~{layout/base_layout}">
+    
+    
+    
+    <main layout:fragment="main">
+    
+		<!-- 홈화면 로그인 화면으로 사용 / 로그인시에는 선택화면으로 사용(키오스크/포스기 선택)
+        화면구성상 일반 모니터, 키오스크 세로 모니터에서 화면 표현 -->
+        <!-- 로그인 상태일때 -->
+        <!-- 로그인 요청 화면 보여주기 -->
+        <!-- TODO: 로그인 상테 변경 -->
+        <th:block sec:authorize="isAuthenticated()"> 
+            <hr/>
+            <div class="container text-center">
+            
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                
+                    <div class="col text-center">
+                        <div class="card text-bg-warning mb-3"onclick="location.href='/kiosk/line_registration'">
+                            <div class="card-body">
+                                <p class="card-text" >line kiosk</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col text-center" >
+                        <div class="card text-bg-info mb-3" onclick="location.href='/force/force_main'">
+                            <div class="card-body">
+                                <p class="card-text" >force</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </th:block>
+        <!-- 로그아웃 상태일때 -->
+        <!-- 선택가능한 2개의 버튼(줄서기 키오스크/포스기) -->
+        <th:block sec:authorize="isAnonymous()">
+            <div class="container text-center">
+                <div>
+                    <font class="d-none text-danger" id="worngFont"></font>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <form class="form-signin" method="post" action="/login" id="formLogin">
+                            <input type="text" id="username" name="username" class="form-control my-2" placeholder="아이디를 입력하세요 (회원가입시 매장 이름)" required autofocus>
+                            <input type="password" id="password" name="password" class="form-control my-2" placeholder="비밀번호를 입력하세요" required>
+                            <div>
+                                <a href="/user/sing_up">회원가입</a>
+                                <a href="/user/find_password">비밀번호찾기</a>
+                            </div>
+                            
+                            <div class="d-grid gap-2 col-6 mx-auto">
+                                <button class="btn btn-lg btn-primary btn-block my-2" type="button" id="btnLogIn" >로그인</button>
+                            </div>
+                        </form>
+                    </div>            
+                </div>
+            </div>
+            <th:block layout:fragment="myscripts">
+                <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+                <script src="/js/main/login_check.js"></script>
+            </th:block>
+        </th:block>
+    </main>
+    
+</html>

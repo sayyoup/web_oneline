@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/force_layout}">
+    <main class="my-5" layout:fragment="main">
+        
+        <!-- TODO: 1 이미지처리, 2 문자자동포메팅 -->
+        <div class="container text-center">
+            <form method="post" action="/store/update_menu" id="formModified">
+                <!-- 숨겨서 보낼요소들 -->
+                <input type="hidden" name="id" th:value="${menu.id}"/>
+                <input type="hidden" name="m_name" id="hInputNmae"/>
+                
+                <input type="hidden" name="m_pic" id="hInputPic" th:value="${menu.m_pic}" th:if="${menu.m_pic != null}"/>
+                <input type="hidden" name="m_pic" id="hInputPic" th:if="${menu.m_pic == null}"/>
+                <h1 class="p-3 my-2">- 상품 수정 -</h1>
+                <hr/>
+                                                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_stock">카테고리 : </label>
+                    </div>
+                    <div class="col-8">
+                        <select id="selectCategory" th:value="${menu.m_category}" class="form-select" aria-label="Default select example" name="m_category" required>
+                            <option >카테고리를 골라주세요</option>
+                            <option th:selected="${menu.m_category}=='메인메뉴'" value="메인메뉴">메인메뉴</option>
+                            <option th:selected="${menu.m_category}=='사이드메뉴'" value="사이드메뉴">사이드메뉴</option>
+                            <option th:selected="${menu.m_category}=='세트메뉴'" value="세트메뉴">세트메뉴</option>
+                            <option th:selected="${menu.m_category}=='음료/주류'" value="음료/주류">음료/주류</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_name">메뉴이름 : </label>
+                    </div>
+                    
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="m_name"
+                        placeholder="메뉴의 이름을 적어주세요" th:value="${menu.m_name}" required autofocus>
+                    </div>
+                    <div class="col-2">
+                        <button id="nameSaver" class="btn btn-outline-success" type="button">저장</button>
+                    </div>
+                </div>
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_price">메뉴가격 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" id="m_price" name="m_price"
+                        placeholder="메뉴의 가격을 적어주세요" th:value="${menu.m_price}" required>
+                    </div>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_description">메뉴설명: </label>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="가나다라마바사" th:text="${menu.m_description}" name="m_description" id="m_description" style="height: 100px"></textarea>
+                            <label for="m_description">메뉴의 설명을 적어주세요</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_stock">하루 재고량 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" th:value="${menu.m_stock}" id="m_stock" name="m_stock"
+                        placeholder="하루 최대 판매 수량" required>
+                    </div>
+                </div>
+                <div class="row p-1 my-1">
+                    <div class="col">
+                        <button class="btn btn-outline-success" type="button"  data-bs-toggle="modal" data-bs-target="#beforeImage">기존 사진보기</button>
+                        <button class="btn btn-outline-success" disabled type="button" id="btnShowImageModified">사진 수정하기</button>
+                    </div>
+                </div>                
+            </form>   
+                
+            <div class="row p-1 my-1 d-none" id="divModifiedImage">
+                <div class="col-2">
+                    <label for="m_pic">변경할 사진 : </label>
+                </div>
+                <div class="col-8">
+                    <form enctype="multipart/form-data">
+                        <input type="file" class="form-control" id="m_pic"/>
+                    </form>
+                </div>
+            </div>
+            <hr/>
+            <div class="d-grid gap-2 d-md-block my-4">
+                <button class="btn btn-outline-primary" type="button" id="btnUpdataMenu">수정하기</button>
+                <button class="btn btn-outline-secondary" type="button" onClick="location.href='/store/store_menu'">취소</button>                    
+            </div>
+        </div>
+
+        <div class="modal fade" id="beforeImage"
+            data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5"
+                            id="staticBackdropLabel">기존 이미지</h1>
+                        <button type="button" class="btn-close"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img th:src="${menu.m_pic}" alt="beforeImage" th:if="${menu.m_pic != null}"/>
+                        <img src="/image/menu_image_ready_big.png" alt="beforeImage" th:if="${menu.m_pic == null}"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/menu/modified_menu.js"></script>
+        <script src="/js/menu/modified_menu_image.js"></script>
+    </th:block>
+    
+    
+</html>

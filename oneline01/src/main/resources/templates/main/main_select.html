@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"    
+    layout:decorate="~{layout/base_layout}">
+    <main layout:fragment="main">
+    
+        <!-- 홈화면 로그인 화면으로 사용 / 로그인시에는 선택화면으로 사용(키오스크/포스기 선택)
+        화면구성상 일반 모니터, 키오스크 세로 모니터에서 화면 표현 -->
+        <!-- 로그인 상태일때 -->
+        <!-- 로그인 요청 화면 보여주기 -->
+        <!-- TODO: 로그인 상테 변경 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <hr/>
+            <div class="container text-center">
+            
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                
+                    <div class="col text-center">
+                        <div class="card text-bg-warning mb-3"onclick="location.href='/kiosk/line_registration'">
+                            <div class="card-body">
+                                <p class="card-text" >line kiosk</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col text-center" >
+                        <div class="card text-bg-info mb-3" onclick="location.href='/force/force_main'">
+                            <div class="card-body">
+                                <p class="card-text" >force</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </th:block>
+        
+        <!-- 로그아웃 상태일때 -->
+        <!-- 선택가능한 2개의 버튼(줄서기 키오스크/포스기) -->
+        <th:block sec:authorize="isAnonymous()">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col">
+                        <font>비정상적인 접근입니다.</font>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="location.href='/'">돌아가기</button>
+            </div>
+        </th:block>
+    </main>
+    
+    <th:block layout:fragment="myscripts">
+    </th:block>
+    
+</html>

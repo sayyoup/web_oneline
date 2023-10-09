@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/base_layout}">
+    <main layout:fragment="main">        
+        <div class="container text-center">
+            <div class="row">
+                <div class="col">
+                
+                    <form class="form-signin" method="get" action="/kiosk/registration_complete" id="formCreateLine">
+                        <input type="hidden" value="0" name="storeId"/>
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control my-2" type="tel" name="inputPhone" id="inputPhone" oninput='autoHyphen2(this)' required autofocus maxlength="13"/>
+                                    <label for="inputPhone">전화번호</label>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-floating mb-3">
+                                    <input class="form-control my-2" type="number" maxlength="2" name="inputMember" id="inputMember" required/>
+                                    <label for="inputMember">인원수</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 col-6 mx-auto my-3">
+                            <button id="btnRegistration" class="btn btn-outline-primary" type="button">줄 등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" th:value="${storeId}" id="inputStoreId"/>
+        <script>
+            const autoHyphen2 = (target) => {
+                target.value = target.value
+                .replace(/[^0-9]/g, '')
+                .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, "$1-$2-$3")
+                .replace(/(\-{1,2})$/g, "");
+            }
+        </script>
+    </main>
+    <th:bolck layout:fragment="myscripts">
+        <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/kakao/send_line_masegge.js"></script>
+    </th:bolck>
+</html>

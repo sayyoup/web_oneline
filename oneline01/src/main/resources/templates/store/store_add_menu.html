@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/force_layout}">
+    <main class="my-5" layout:fragment="main">
+        
+        <!-- TODO: 1 이미지처리, 2 문자자동포메팅 -->
+        <div class="container text-center">
+            <form method="post" id="formAdd">
+                <input type="hidden" id="storeId" name="storeId" value="0"/>
+                <h1 class="p-3 my-2">- 새 상품 등록 -</h1>
+                <hr/>
+                                                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_stock">카테고리 : </label>
+                    </div>
+                    <div class="col-8">
+                        <select id="selectCategory" class="form-select" aria-label="Default select example" name="m_category" required>
+                            <option selected>카테고리를 골라주세요</option>
+                            <option value="메인메뉴">메인메뉴</option>
+                            <option value="사이드메뉴">사이드메뉴</option>
+                            <option value="세트메뉴">세트메뉴</option>
+                            <option value="음료/주류">음료/주류</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_name">메뉴이름 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="text" class="form-control" id="m_name" placeholder="메뉴의 이름을 적어주세요" required autofocus>
+                        <input type="hidden" name="m_name" id="nameSet">
+                    </div>
+                    <div class="col-2">
+                        <button id="nameSaver" class="btn btn-outline-success" type="button">저장</button>
+                    </div>
+                </div>
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_price">메뉴가격 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" id="m_price" name="m_price"
+                        placeholder="메뉴의 가격을 적어주세요" required>
+                    </div>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_description">메뉴설명: </label>
+                    </div>
+                    <div class="col-8">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="메뉴의 설명을 적어주세요" name="m_description" id="m_description" style="height: 100px"></textarea>
+                            <label for="m_description">메뉴의 설명을 적어주세요</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                    <label for="m_stock">하루 재고량 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="number" class="form-control" id="m_stock" name="m_stock"
+                        placeholder="하루 최대 판매 수량" required value="99999">
+                    </div>
+                </div>
+                <!-- 사진Url -->
+                <input type="hidden" id="input_pic" name="m_pic"/>
+            </form>   
+            
+            <form enctype="multipart/form-data" id="fileForm">
+                <div class="row p-1 my-1">
+                    <div class="col-2">
+                        <label for="m_pic">사진등록 : </label>
+                    </div>
+                    <div class="col-8">
+                        <input type="file" class="form-control" id="m_pic"/>
+                    </div>
+                </div>
+            </form>
+                <hr/>
+                <div class="d-grid gap-2 d-md-block my-4">
+                    <button class="btn btn-outline-primary" type="button" id="btnAddMenu">등록하기</button>
+                    <button class="btn btn-outline-secondary" type="button" onClick="location.href='/store/store_menu'">취소</button>                    
+                </div>
+        </div>  
+    </main>
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/menu/add_menu.js"></script>
+        <script src="/js/menu/add_menu_image.js"></script>
+    </th:block>
+</html>

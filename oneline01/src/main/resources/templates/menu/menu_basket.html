@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/line_layout}">
+    <main layout:fragment="main">
+    <input th:value="${c_id}" type="hidden" id="inputCId"/>
+        <!-- 주문내역 카드 -->
+        <div class="card text-center">
+            <div class="card-head">
+                <h4 class="p-2 my-2">- 장바구니 -</h4>
+            </div>
+            
+            <div class="card-body" style="height:450px; overflow: auto;">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">메뉴</th>
+                            <th style="text-align:left;">가격</th>
+                            <th>수량</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyBasketList">
+                    
+                        <tr>
+                            <td style="text-align:left;" data-bs-toggle="modal" data-bs-target="#menuDetailModal">
+                                <div style="background: teal; width:80px ; height:80px;">
+                                    이미지
+                                </div>
+                                <font  size=2>
+                                    상품이름 크...
+                                </font >         
+                            </td>
+                            <td style="text-align:left;" data-bs-toggle="modal" data-bs-target="#menuDetailModal">
+                                20000원
+                            </td>
+                            <td>
+                                <button class="btn btn-outline-primary">-</button>
+                                1
+                                <button class="btn btn-outline-primary">+</button>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            
+            <div class="card-footer">
+                <div>
+                <table class="table">
+                    <tr>
+                        <td colspan="2" style="text-align:left;"><h3>총금액 : </h3></td>            
+                        <td style="text-align:right;">
+                        <h3><font id="fontTotalPrice">20000</font> 원</h3>
+                        </td>
+                    </tr>
+                </table>
+            
+                </div>
+                <span class="d-grid 2-gap">
+                    <button class="btn btn-primary my-2" id="btnOrder">주문 완료</button>
+                    <button class="btn btn-primary my-1" id="btnAddBasket">추가로 담기</button>
+                </span>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="menuDetailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content text-center">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="h1MenuDetailModalName">메뉴이름</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="divMenuDetailModalImage">
+                            이미지 크게보기
+                        </div>
+                        <hr/>
+                        <div id="divMenuDetailModalPrice">
+                            금액
+                        </div>
+                        <div id="divMenuDetailModalDescription">
+                            메뉴설명
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/phone/menu_basket_page.js"></script>
+    </th:block>
+    
+    
+</html>

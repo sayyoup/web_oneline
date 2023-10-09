@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/force_layout}">
+    <main class="my-5" layout:fragment="main">
+        <div class="d-grid 2-gap">
+            <button class="btn btn-outline-primary my-2" onClick="location.href='/store/store_add_menu'">상품추가</button>
+        </div>
+        <div id="menu_table">
+            <table class="table">
+                <caption style="color: white;">상품관리</caption>
+                <thead>
+                    <tr>
+                        <th>상품이름</th>
+                        <th>가격</th>
+                        <th>카테고리</th>
+                        <th>하루최대수량</th>
+                        <th>금일재고량</th>
+                        <th colspan="2" style="text-align:center">수정/삭제</th>
+                    </tr>
+                </thead>
+                <!-- tbody 안에 메뉴 리스트 내용이 들어옴  -->
+                <tbody id="menuListTableBody">
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/menu/store_menu.js"></script>
+    </th:block>
+</html>

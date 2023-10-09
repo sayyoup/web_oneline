@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thyeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout/line_layout}">
+    <main layout:fragment="main">
+    <input th:value="${c_id}" type="hidden" id="inputCId"/>
+        <!-- 주문내역 카드 -->
+        <div class="card text-center">
+            <div class="card-head">
+                <h4 class="p-2 my-2">- 주문 내역 -</h4>
+            </div>
+            
+            <div class="card-body" style="height:450px; overflow: auto;">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th style="text-align:left;">메뉴</th>
+                            <th style="text-align:left;">이름</th>
+                            <th>수량</th>
+                            <th style="text-align:right;">가격</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyOrderList">
+                    
+                        <tr>
+                            <td style="text-align:left;">
+                                <div style="background: teal; width:80px ; height:80px;">
+                                    이미지
+                                </div>
+                            </td>                            
+                            <td style="text-align:left;">
+                                <font size=2>상품1ㅁㄴㅇㄴㅁㅇㄴ</font>
+                            </td>
+                            <td>1</td>
+                            <td style="text-align:right;">20000원</td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+            
+            
+            <div class="card-footer">
+                <div>
+                <table class="table">
+                    <tr>
+                        <td colspan="2" style="text-align:left;"><h3>총금액 : </h3></td>            
+                        <td style="text-align:right;">
+                            <h3><span id="spanTotalPrice"></span> 원</h3>
+                        </td>
+                    </tr>
+                </table>
+            
+                </div>
+                <span class="d-grid 2-gap">
+                    <button class="btn btn-primary my-2" id="btnGoHoe">홈으로이동</button>
+                    <button class="btn btn-primary my-1" id="btnaddBasket">추가 주문 하기</button>
+                </span>
+            </div>
+        </div>
+        
+        
+    </main>
+    <th:block layout:fragment="myscripts">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/phone/order_page.js"></script>
+    </th:block>
+</html>
